@@ -1,0 +1,64 @@
+{
+  "resources": {
+    "head": [
+      {
+        "type": "script",
+        "src": "app.js"
+      }
+    ]
+  },
+  "preview": {
+    "handlers": [
+      {
+        "options": ["*"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "browser": {
+        "order": 1,
+        "type": "boolean",
+        "title": "Enable Browser",
+        "description": "Enable the logging of browser name and version in the body as class.",
+        "default": true
+      },
+      "resolution": {
+        "order": 2,
+        "type": "boolean",
+        "title": "Enable Resolution",
+        "description": "Enable the logging of the height and width of the device in the body as class.",
+        "default": true
+      },
+      "platform": {
+        "order": 3,
+        "type": "boolean",
+        "title": "Enable Platform",
+        "description": "Enable the logging of the platform; eg Windows in the body as class.",
+        "default": true
+      },
+      "language": {
+        "order": 4,
+        "type": "boolean",
+        "title": "Enable language",
+        "description": "Enable the logging of the selected language chosen by the user in the browser to the body class.",
+        "default": true
+      },
+      "country": {
+        "order": 5,
+        "type": "boolean",
+        "title": "Enable country",
+        "description": "Enable the logging of the country the user is located in to the body class.",
+        "default": true
+      },
+      "referrer": {
+        "order": 6,
+        "type": "boolean",
+        "title": "Enable referrer",
+        "description": "Enable the logging of the website referrer if there is any to the body class.",
+        "default": true
+      }
+    }
+  }
+}
