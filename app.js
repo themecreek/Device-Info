@@ -21,7 +21,7 @@ window.onload = function() {
         js.onload = function() {
          country = geoplugin_countryName();  
          result = country.toLowerCase().replace(/\s/g, '-'); 
-        if (options.country)  body.className += result;  
+        if (options.country)  body.className += result + ' ';  
         };
        
 RegExp.quote = function(str) {
@@ -53,7 +53,7 @@ if (our_ref.length > 0) {
         var ref_domain = extractDomain(our_ref);
         if (ref_domain.length > 0) {
             console.log(ref_domain);
-           if (options.referrer)  body.className += ref_domain; 
+           if (options.referrer)  body.className += ref_domain + ' '; 
         }
     }
     else {
