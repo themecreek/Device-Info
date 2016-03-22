@@ -8,7 +8,7 @@
  */
 (function(){
         var options, windowadaptTimeout, winWidth, winHeight, body, country;
-        var body = document.body;
+        body = document.getElementsByTagName('body')[0];
 	var tempCounter = 0;	          
 	function delayedResize() {
 		window.status = ++tempCounter;               

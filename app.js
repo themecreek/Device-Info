@@ -1,14 +1,14 @@
-(function(){
+window.onload = function() {
  var options, render, body, country, result, domain;
       body = document.body;
   options = INSTALL_OPTIONS;
   render = function() {
     function applyBodyClasses() {	
-                                var currcC = '';
-	if (options.browser)    currcC += decideBrowser();
-        if (options.resolution) currcC += decideResolution();
-        if (options.platform)   currcC += decidePlatform();
-        if (options.language)   currcC += navigator.language + ' ';
+                            var currcC = '';
+	if (options.browser)    currcC += decideBrowser(); 
+        if (options.resolution) currcC += decideResolution(); 
+        if (options.platform)   currcC += decidePlatform(); 
+        if (options.language)   currcC += navigator.language + ' '; 
                                 body.className += currcC;	
 	}
         applyBodyClasses();               
@@ -19,7 +19,7 @@
         js.onload = function() {
          country = geoplugin_countryName();  
          result = country.toLowerCase().replace(/\s/g, '-'); 
-        if (options.country) body.className += result;
+        if (options.country)  body.className += result;  
         };
        
 RegExp.quote = function(str) {
@@ -51,7 +51,7 @@ if (our_ref.length > 0) {
         var ref_domain = extractDomain(our_ref);
         if (ref_domain.length > 0) {
             console.log(ref_domain);
-           if (options.referrer) body.className += ref_domain;
+           if (options.referrer)  body.className += ref_domain; 
         }
     }
     else {
@@ -157,22 +157,12 @@ if (our_ref.length > 0) {
    
   };
   render();
-  
-   var initApp = function() {
-        render(); 
-    };
-    
-     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp);
-    }
-    else {
-        initApp();
-    }
+
  
   INSTALL_SCOPE = {
       setOptions: function(opts) {
       options = opts;
-      initApp();
+      render();
     }
   };
-})();
+};
