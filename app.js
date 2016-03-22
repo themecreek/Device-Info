@@ -3,7 +3,9 @@ window.onload = function() {
       body = document.body;
   options = INSTALL_OPTIONS;
   render = function() {
-    function applyBodyClasses() {	
+    function applyBodyClasses() {
+        		clearBodyClasses();
+
                             var currcC = '';
 	if (options.browser)    currcC += decideBrowser(); 
         if (options.resolution) currcC += decideResolution(); 
@@ -153,7 +155,9 @@ if (our_ref.length > 0) {
 		return cC;
 	} 
    
-   
+        function clearBodyClasses() {
+		body.classList.remove("w1920", "w1600", "w1440", "w1280", "w1024", "w768", "w480", "w320", "wtiny", "h1024", "h900", "h768", "h600", "h480", "htiny");
+	}
    
   };
   render();
