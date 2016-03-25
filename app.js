@@ -1,66 +1,75 @@
 window.onload = function() {
- var options, render, body, country, result, domain;
+var options, render, body, country, result, domain;
       body = document.body;
-  options = INSTALL_OPTIONS;
-  render = function() {
-    function applyBodyClasses() {
-        		clearBodyClasses();
-
+      options = INSTALL_OPTIONS;
+render = function() {
+        function applyBodyClasses() {
+        clearBodyClasses();
                             var currcC = '';
 	if (options.browser)    currcC += decideBrowser(); 
         if (options.resolution) currcC += decideResolution(); 
         if (options.platform)   currcC += decidePlatform(); 
+        if (options.referrer)   currcC += decideRefferer(); 
+        if (options.country)    currcC += decideCountry();
         if (options.language)   currcC += navigator.language + ' '; 
                                 body.className += currcC;	
 	}
-        applyBodyClasses();               
-        var js = document.createElement("script");
-        js.type = "text/javascript";
-        js.src = "http://www.geoplugin.net/javascript.gp"; 
-        document.head.appendChild(js); 
-        js.onload = function() {
-         country = geoplugin_countryName();  
-         result = country.toLowerCase().replace(/\s/g, '-'); 
-        if (options.country)  body.className += result + ' ';  
-        };
-       
-RegExp.quote = function(str) {
-    return str.replace(/(?=[\\^$*+?.()|{}[\]])/g, "\\");
-}; 
-function extractDomain(url) {
-    // find & remove protocol (http, ftp, etc.) and get domain
-    if (url.indexOf("://") > -1) {
-        domain = url.split('/')[2];
-    }
-    else {
-        domain = url.split('/')[0];
-    }
-    // find & remove port number
-    domain = domain.split(':')[0];
-    domain = domain.replace('www.', '');
-    domain = domain.replace(/\./g, '_');
-
-    return domain;
-}
-var our_domain = document.domain.replace('www.', '');
-var our_ref = document.referrer;
-if (our_ref.length > 0) {
-    var reg_test = RegExp("((?:www\.)?(" + RegExp.quote(our_domain) + "))", "i");
-    if (!reg_test.test(our_ref)) {
-        // not our domain
-        console.log('not our domain');
-        // get the domain of the referer
-        var ref_domain = extractDomain(our_ref);
-        if (ref_domain.length > 0) {
-            console.log(ref_domain);
-           if (options.referrer)  body.className += ref_domain + ' '; 
+        
+        applyBodyClasses();      
+ 
+        function decideCountry() {
+            var cC = '';
+            var js = document.createElement("script");
+            js.type = "text/javascript";
+            js.src = "http://www.geoplugin.net/javascript.gp"; 
+            document.head.appendChild(js); 
+            country = geoplugin_countryName();  
+            result = country.toLowerCase().replace(/\s/g, '-'); 
+            cC = result + ' ';
+            return cC;
         }
-    }
-    else {
-        // same domain
-        console.log('same domain');
-    }
-}                     
+
+        function decideReferrer() {
+            var cC = '';
+		
+            RegExp.quote = function(str) {
+            return str.replace(/(?=[\\^$*+?.()|{}[\]])/g, "\\");
+            }; 
+            function extractDomain(url) {
+            // find & remove protocol (http, ftp, etc.) and get domain
+            if (url.indexOf("://") > -1) {
+            domain = url.split('/')[2];
+            }
+            else {
+            domain = url.split('/')[0];
+            }
+            // find & remove port number
+            domain = domain.split(':')[0];
+            domain = domain.replace('www.', '');
+            domain = domain.replace(/\./g, '_');
+
+            return domain;
+            }
+            var our_domain = document.domain.replace('www.', '');
+            var our_ref = document.referrer;
+            if (our_ref.length > 0) {
+            var reg_test = RegExp("((?:www\.)?(" + RegExp.quote(our_domain) + "))", "i");
+            if (!reg_test.test(our_ref)) {
+            // not our domain
+            // get the domain of the referer
+            var ref_domain = extractDomain(our_ref);
+            if (ref_domain.length > 0) {
+            console.log(ref_domain);
+            }
+            }
+            else {
+            // same domain
+            }
+            }
+            cC = ref_domain + ' ';
+            return cC;
+        }
+        
         function decidePlatform() {
 		var cC = '';
 		
@@ -158,12 +167,12 @@ if (our_ref.length > 0) {
         function clearBodyClasses() {
 		body.classList.remove("w1920", "w1600", "w1440", "w1280", "w1024", "w768", "w480", "w320", "wtiny", "h1024", "h900", "h768", "h600", "h480", "htiny");
 	}
-   
-  };
-  render();
+        
+};
+render();
 
  
-  INSTALL_SCOPE = {
+INSTALL_SCOPE = {
       setOptions: function(opts) {
       options = opts;
       render();
